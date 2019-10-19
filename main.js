@@ -1,11 +1,14 @@
-const val1 = +prompt("Введите число");
-const pow1 = +prompt("Введите степень");
+const findLatestWeight = function(weights) {
+    if (weights.length === 1) return weights[0]
 
-function power(val, pow) {
-    if (pow === 0) {
-        return 1;
-    }
-    return val * power(val, pow - 1);
+    const maxVal = Math.max.apply(Math, weights)
+    let filteredArr = weights.filter(num => num !== maxVal)
+    const filteredMaxVal = Math.max.apply(Math, weights)
+    const filteredMaxValIndex = weights.indexOf(filteredMaxVal)
+
+    filteredArr[filteredMaxValIndex] = maxVal - filteredMaxVal
+
+    return findLatestWeight(filteredArr)
 }
 
-alert(power(val1, pow1));
+console.log(findLatestWeight([2,7,4,1,8,1]))
