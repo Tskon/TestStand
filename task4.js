@@ -1,6 +1,7 @@
 function solution(input) {
-  document.body.innerHTML = input
-
+  const div = document.createElement('div')
+  div.innerHTML = input
+  document.body.appendChild(div)
 
   const nextRow = '\n'
   const result = {
@@ -25,7 +26,6 @@ function solution(input) {
       const resultCell = {}
       resultCell.elementName = cell.tagName
       resultCell.content = cell.innerText
-      console.log(resultCell)
 
       resultRow.push(resultCell)
     })
@@ -43,9 +43,7 @@ function solution(input) {
       if (cell.elementName === 'TH') string += '**'
       string += (j !== arr.length - 1) ? ' | ' : ' |'
     })
-
     string += nextRow
-
     if (i === 0 && result.colgroup.length) {
       string += '| '
       result.colgroup.forEach((colAlign, i, arr) => {
@@ -61,18 +59,21 @@ function solution(input) {
       })
 
       string += nextRow
+    } else if (i === 0) {
+      string += '| '
+      row.forEach((el, i, arr) => {
+        string += ':---'
+        string += (i === arr.length - 1) ? ' |' : ' | '
+      })
+      string += nextRow
     }
   })
-
+  console.log(result)
   return string
 }
 
 console.log(solution(`<table>
-  <colgroup>
-    <col align="right" />
-    <col />
-    <col align="center" />
-  </colgroup>
+  
   <thead>
   <tr>
     <td>Command         </td>
